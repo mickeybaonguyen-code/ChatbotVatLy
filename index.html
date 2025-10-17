@@ -5,29 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Khám Phá Vật Lí 10 | Chân trời sáng tạo</title>
     <style>
-        /* --- PHẦN CSS - GIAO DIỆN CHUNG & HIỆU ỨNG --- */
         @import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;700&display=swap');
-
         :root {
-            --primary-color: #4A90E2; /* A softer, more modern blue */
+            --primary-color: #4A90E2;
             --secondary-color: #f7f9fc;
             --text-color: #333;
             --light-gray: #eef2f7;
             --white: #ffffff;
             --timer-bg: #e3f2fd;
         }
-
         body {
             font-family: 'Be Vietnam Pro', sans-serif;
             margin: 0;
-            overflow: hidden; /* Hide scrollbars initially */
+            overflow: hidden;
         }
-
-        /* --- TRANG KHỞI ĐỘNG (STARTUP PAGE) --- */
         #startup-page {
             height: 100vh;
-            background: #0f0c29;  /* fallback for old browsers */
-            background: -webkit-linear-gradient(to right, #24243e, #302b63, #0f0c29);
             background: linear-gradient(to right, #24243e, #302b63, #0f0c29);
             display: flex;
             justify-content: center;
@@ -38,66 +31,16 @@
             z-index: 10;
             transition: opacity 0.8s ease-out;
         }
+        .startup-content h1 { font-size: 3.5rem; font-weight: 700; margin-bottom: 20px; text-shadow: 0 0 15px rgba(255,255,255,0.2); }
+        .startup-content p { font-size: 1.2rem; max-width: 600px; margin: 0 auto 40px; opacity: 0.9; }
+        #start-learning-btn { font-size: 1.2rem; font-weight: 500; padding: 15px 35px; border-radius: 50px; border: 2px solid var(--white); background: transparent; color: var(--white); cursor: pointer; transition: all 0.3s ease; }
+        #start-learning-btn:hover { background: var(--white); color: #0f0c29; transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
+        .bg-particles { position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; z-index: -1; }
+        .particle { position: absolute; background-color: rgba(255, 255, 255, 0.5); border-radius: 50%; animation: move linear infinite; }
+        @keyframes move { 0% { transform: translateY(0) translateX(0); opacity: 1; } 100% { transform: translateY(-100vh) translateX(calc(100vh * var(--drift))); opacity: 0; } }
 
-        .startup-content h1 {
-            font-size: 3.5rem;
-            font-weight: 700;
-            margin-bottom: 20px;
-            text-shadow: 0 0 15px rgba(255,255,255,0.2);
-        }
-
-        .startup-content p {
-            font-size: 1.2rem;
-            max-width: 600px;
-            margin: 0 auto 40px;
-            opacity: 0.9;
-        }
-
-        #start-learning-btn {
-            font-size: 1.2rem;
-            font-weight: 500;
-            padding: 15px 35px;
-            border-radius: 50px;
-            border: 2px solid var(--white);
-            background: transparent;
-            color: var(--white);
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        #start-learning-btn:hover {
-            background: var(--white);
-            color: #0f0c29;
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-        }
-
-        /* Animated Background for Startup Page */
-        .bg-particles {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            z-index: -1;
-        }
-
-        .particle {
-            position: absolute;
-            background-color: rgba(255, 255, 255, 0.5);
-            border-radius: 50%;
-            animation: move linear infinite;
-        }
-
-        @keyframes move {
-            0% { transform: translateY(0) translateX(0); opacity: 1; }
-            100% { transform: translateY(-100vh) translateX(calc(100vh * var(--drift))); opacity: 0; }
-        }
-
-        /* --- TRANG HỌC TẬP CHÍNH (MAIN APP) --- */
         #main-app {
-            display: none; /* Initially hidden */
+            display: none;
             opacity: 0;
             height: 100vh;
             background-color: var(--secondary-color);
@@ -105,69 +48,51 @@
             box-sizing: border-box;
             transition: opacity 0.8s ease-in;
         }
+        .container { display: flex; gap: 20px; width: 100%; max-width: 1200px; margin: auto; height: calc(100vh - 40px); }
+        .main-content, .sidebar { background-color: var(--white); padding: 25px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); display: flex; flex-direction: column; }
+        .main-content { flex-grow: 1; overflow: hidden; /* SỬA LỖI: Ngăn nội dung tràn ra ngoài */ }
+        .sidebar { width: 300px; flex-shrink: 0; }
+        h1, h2 { color: var(--primary-color); border-bottom: 2px solid var(--light-gray); padding-bottom: 10px; }
 
-        .container {
-            display: flex;
-            gap: 20px;
-            width: 100%;
-            max-width: 1200px;
-            margin: auto;
-            height: calc(100vh - 40px);
-        }
-
-        .main-content, .sidebar {
-            background-color: var(--white);
-            padding: 25px;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-            display: flex;
-            flex-direction: column;
-        }
-
-        .main-content {
-            flex-grow: 1;
-        }
-
-        .sidebar {
-            width: 300px;
-            flex-shrink: 0;
-        }
-
-        h1, h2 {
-            color: var(--primary-color);
-            border-bottom: 2px solid var(--light-gray);
-            padding-bottom: 10px;
-        }
-
-        /* --- Chatbot Styles --- */
+        /* --- SỬA LỖI GIAO DIỆN CHAT --- */
         #chatbot {
             display: flex;
             flex-direction: column;
-            flex-grow: 1; /* Make chatbot fill available space */
+            flex-grow: 1;
+            min-height: 0; /* Fix quan trọng để flexbox hoạt động đúng trong mọi trình duyệt */
         }
         #chat-window {
-            flex-grow: 1;
+            flex-grow: 1; /* Cho phép cửa sổ chat chiếm hết không gian còn lại */
+            overflow-y: auto; /* Chỉ thanh cuộn này được hiển thị khi nội dung dài */
             border: 1px solid var(--light-gray);
             border-radius: 8px;
             padding: 15px;
-            overflow-y: auto;
             margin-bottom: 15px;
             background-color: #fafafa;
         }
-        .chat-message { margin-bottom: 12px; padding: 10px 15px; border-radius: 18px; max-width: 80%; line-height: 1.5; }
-        .user-message { background-color: var(--primary-color); color: var(--white); align-self: flex-end; margin-left: auto; border-bottom-right-radius: 4px; }
-        .bot-message { background-color: var(--light-gray); color: var(--text-color); align-self: flex-start; border-bottom-left-radius: 4px; }
-        .bot-message.loading { display: flex; align-items: center; }
-        .bot-message.loading span { height: 10px; width: 10px; margin: 0 2px; background-color: #a0a0a0; border-radius: 50%; display: inline-block; animation: bounce 1.4s infinite ease-in-out both; }
+        #chat-form {
+            flex-shrink: 0; /* Đảm bảo form không bị co lại */
+            display: flex;
+        }
+        /* --- Kết thúc sửa lỗi --- */
+
+        .chat-message { display: flex; margin-bottom: 12px; max-width: 80%; line-height: 1.5; }
+        .chat-message-inner { padding: 10px 15px; border-radius: 18px; }
+        .user-message { margin-left: auto; }
+        .user-message .chat-message-inner { background-color: var(--primary-color); color: var(--white); border-bottom-right-radius: 4px; }
+        .bot-message { margin-right: auto; }
+        .bot-message .chat-message-inner { background-color: var(--light-gray); color: var(--text-color); border-bottom-left-radius: 4px; }
+        .bot-message.error .chat-message-inner { background-color: #ffebee; color: #c62828; }
+        .bot-message.loading .chat-message-inner { display: flex; align-items: center; }
+        .bot-message.loading span { height: 8px; width: 8px; margin: 0 2px; background-color: #a0a0a0; border-radius: 50%; display: inline-block; animation: bounce 1.4s infinite ease-in-out both; }
         .bot-message.loading span:nth-child(1) { animation-delay: -0.32s; }
         .bot-message.loading span:nth-child(2) { animation-delay: -0.16s; }
         @keyframes bounce { 0%, 80%, 100% { transform: scale(0); } 40% { transform: scale(1.0); } }
-        #chat-form { display: flex; }
-        #chat-input { flex-grow: 1; padding: 12px; border: 1px solid var(--light-gray); border-radius: 8px 0 0 8px; font-size: 1em; outline: none; }
+        #chat-input { flex-grow: 1; padding: 12px; border: 1px solid var(--light-gray); border-radius: 8px 0 0 8px; font-size: 1em; outline: none; transition: border-color 0.2s; }
         #chat-input:focus { border-color: var(--primary-color); }
         #chat-form button { padding: 12px 20px; border: none; background-color: var(--primary-color); color: var(--white); border-radius: 0 8px 8px 0; cursor: pointer; font-size: 1em; }
 
-        /* --- Pomodoro Styles --- */
+        /* Pomodoro Styles */
         #pomodoro-timer { text-align: center; }
         #timer-display { font-size: 3.5em; font-weight: 700; margin: 20px 0; color: var(--primary-color); background-color: var(--timer-bg); padding: 20px; border-radius: 10px; }
         #timer-controls button, #session-controls button { padding: 10px 15px; margin: 5px; border: 2px solid var(--primary-color); border-radius: 8px; cursor: pointer; font-size: 1em; background-color: var(--white); color: var(--primary-color); transition: all 0.2s ease; }
@@ -175,7 +100,6 @@
     </style>
 </head>
 <body>
-
     <div id="startup-page">
         <div class="bg-particles"></div>
         <div class="startup-content">
@@ -191,8 +115,10 @@
                 <h2>🤖 Chatbot Vật Lí 10 - Chân Trời Sáng Tạo</h2>
                 <div id="chatbot">
                     <div id="chat-window">
-                        <div class="chat-message bot-message">
-                            Chào bạn! Tôi là trợ lý AI Vật Lí. Bạn cần hỏi gì về chuyên đề học tập Vật Lí 10 không?
+                         <div class="chat-message bot-message">
+                            <div class="chat-message-inner">
+                                Chào bạn! Tôi là trợ lý AI Vật Lí. Bạn cần hỏi gì về chuyên đề học tập Vật Lí 10 không?
+                            </div>
                         </div>
                     </div>
                     <form id="chat-form">
@@ -201,7 +127,6 @@
                     </form>
                 </div>
             </div>
-
             <div class="sidebar">
                 <h2>⏳ Đồng hồ Tự học</h2>
                 <div id="pomodoro-timer">
@@ -222,145 +147,98 @@
         </div>
     </div>
 
-    <script>
-    // --- PHẦN JAVASCRIPT ---
+<script>
+// --- Logic cho Trang Khởi động & Chuyển cảnh ---
+const startupPage = document.getElementById('startup-page');
+const mainApp = document.getElementById('main-app');
+const startLearningBtn = document.getElementById('start-learning-btn');
+startLearningBtn.addEventListener('click', () => {
+    startupPage.style.opacity = '0';
+    setTimeout(() => {
+        startupPage.style.display = 'none';
+        mainApp.style.display = 'block';
+        setTimeout(() => mainApp.style.opacity = '1', 50);
+    }, 800);
+});
+const particleContainer = document.querySelector('.bg-particles');
+for (let i = 0; i < 50; i++) {
+    let particle = document.createElement('div');
+    particle.classList.add('particle');
+    let size = Math.random() * 3 + 1;
+    particle.style.cssText = `width:${size}px; height:${size}px; top:${Math.random()*100}vh; left:${Math.random()*100}vw; animation-duration:${Math.random()*10+10}s; animation-delay:${Math.random()*5}s;`;
+    particle.style.setProperty('--drift', `${Math.random()*2-1}`);
+    particleContainer.appendChild(particle);
+}
 
-    // --- Logic cho Trang Khởi động & Chuyển cảnh ---
-    const startupPage = document.getElementById('startup-page');
-    const mainApp = document.getElementById('main-app');
-    const startLearningBtn = document.getElementById('start-learning-btn');
+// --- Logic cho Đồng hồ Pomodoro ---
+const timerDisplay = document.getElementById('timer-display');
+const startBtn = document.getElementById('start-btn');
+const pauseBtn = document.getElementById('pause-btn');
+const resetBtn = document.getElementById('reset-btn');
+const sessionBtns = document.querySelectorAll('#session-controls button');
+let countdown, timeLeft = 1500, isPaused = true;
+function displayTimeLeft(s) { const m = Math.floor(s / 60); const r = s % 60; timerDisplay.textContent = `${m<10?'0':''}${m}:${r<10?'0':''}${r}`; document.title = timerDisplay.textContent; }
+function timer(s) { clearInterval(countdown); const then = Date.now() + s * 1000; displayTimeLeft(s); countdown = setInterval(() => { const sLeft = Math.round((then - Date.now()) / 1000); if (sLeft < 0) { clearInterval(countdown); alert("Hết giờ!"); return; } timeLeft = sLeft; displayTimeLeft(timeLeft); }, 1000); }
+function startTimer() { if (isPaused) { isPaused = false; timer(timeLeft); } }
+function pauseTimer() { isPaused = true; clearInterval(countdown); }
+function resetTimer(s=1500) { isPaused = true; clearInterval(countdown); timeLeft = s; displayTimeLeft(timeLeft); }
+startBtn.addEventListener('click', startTimer); pauseBtn.addEventListener('click', pauseTimer); resetBtn.addEventListener('click', () => resetTimer(timeLeft));
+sessionBtns.forEach(btn => btn.addEventListener('click', (e) => resetTimer(parseInt(e.target.dataset.time, 10))));
+displayTimeLeft(timeLeft);
 
-    startLearningBtn.addEventListener('click', () => {
-        // Làm mờ trang khởi động
-        startupPage.style.opacity = '0';
-        
-        setTimeout(() => {
-            // Sau khi mờ xong, ẩn nó đi và hiển thị trang chính
-            startupPage.style.display = 'none';
-            mainApp.style.display = 'block';
-            
-            // Một khoảng trễ nhỏ để trình duyệt render rồi mới làm hiện ra
-            setTimeout(() => {
-                mainApp.style.opacity = '1';
-            }, 50);
+// --- Logic cho Chatbot ---
+const chatWindow = document.getElementById('chat-window');
+const chatForm = document.getElementById('chat-form');
+const chatInput = document.getElementById('chat-input');
 
-        }, 800); // Thời gian khớp với transition trong CSS
-    });
+chatForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const userMessage = chatInput.value.trim();
+    if (userMessage) {
+        addMessageToChat(userMessage, 'user');
+        chatInput.value = '';
+        getBotResponse(userMessage);
+    }
+});
+
+function addMessageToChat(message, sender, options = {}) {
+    const { isLoading = false, isError = false } = options;
+    const messageWrapper = document.createElement('div');
+    messageWrapper.classList.add('chat-message', `${sender}-message`);
+    if(isError) messageWrapper.classList.add('error');
+    if(isLoading) messageWrapper.classList.add('loading');
     
-    // Tạo các hạt background động
-    const particleContainer = document.querySelector('.bg-particles');
-    const numParticles = 50;
-    for (let i = 0; i < numParticles; i++) {
-        let particle = document.createElement('div');
-        particle.classList.add('particle');
-        
-        let size = Math.random() * 3 + 1; // Size từ 1px đến 4px
-        particle.style.width = `${size}px`;
-        particle.style.height = `${size}px`;
-        
-        particle.style.top = `${Math.random() * 100}vh`;
-        particle.style.left = `${Math.random() * 100}vw`;
-        
-        // Duration: thời gian bay, delay: lúc nào bắt đầu bay
-        let duration = Math.random() * 10 + 10; // Từ 10 đến 20 giây
-        let delay = Math.random() * 5; // Trễ tối đa 5 giây
-        particle.style.animationDuration = `${duration}s`;
-        particle.style.animationDelay = `${delay}s`;
+    const messageInner = document.createElement('div');
+    messageInner.classList.add('chat-message-inner');
 
-        // --drift là một biến CSS tùy chỉnh để hạt bay xiên
-        particle.style.setProperty('--drift', `${Math.random() * 2 - 1}`);
+    if (isLoading) {
+        messageInner.innerHTML = `<span></span><span></span><span></span>`;
+    } else {
+        messageInner.textContent = message;
+    }
+    
+    messageWrapper.appendChild(messageInner);
+    chatWindow.appendChild(messageWrapper);
+    chatWindow.scrollTop = chatWindow.scrollHeight;
+    return messageWrapper;
+}
 
-        particleContainer.appendChild(particle);
+async function getBotResponse(userMessage) {
+    const loadingElement = addMessageToChat('', 'bot', { isLoading: true });
+    
+    // =========================================================================
+    //   QUAN TRỌNG: DÁN API KEY MỚI CỦA BẠN VÀO ĐÂY
+    // =========================================================================
+    const API_KEY = 'YOUR_GOOGLE_AI_API_KEY'; // <--- THAY THẾ BẰNG KEY MỚI CỦA BẠN
+
+    if (API_KEY === 'AIzaSyCOgPCfaW7nObg5W88xTC5KvMqqs7dyDJU') {
+        loadingElement.remove();
+        addMessageToChat('Lỗi cấu hình: Bạn chưa thay thế API Key. Vui lòng kiểm tra lại code.', 'bot', { isError: true });
+        return;
     }
 
-
-    // --- Logic cho Đồng hồ Pomodoro (giữ nguyên) ---
-    const timerDisplay = document.getElementById('timer-display');
-    const startBtn = document.getElementById('start-btn');
-    const pauseBtn = document.getElementById('pause-btn');
-    const resetBtn = document.getElementById('reset-btn');
-    const sessionBtns = document.querySelectorAll('#session-controls button');
-
-    let countdown;
-    let timeLeft = 1500;
-    let isPaused = true;
-
-    function displayTimeLeft(seconds) {
-        const minutes = Math.floor(seconds / 60);
-        const remainderSeconds = seconds % 60;
-        const display = `${minutes < 10 ? '0' : ''}${minutes}:${remainderSeconds < 10 ? '0' : ''}${remainderSeconds}`;
-        timerDisplay.textContent = display;
-        document.title = display + " - Tự học Vật Lí 10";
-    }
-    function timer(seconds) {
-        clearInterval(countdown);
-        const now = Date.now();
-        const then = now + seconds * 1000;
-        displayTimeLeft(seconds);
-        countdown = setInterval(() => {
-            const secondsLeft = Math.round((then - Date.now()) / 1000);
-            if (secondsLeft < 0) {
-                clearInterval(countdown);
-                alert("Hết giờ!");
-                return;
-            }
-            timeLeft = secondsLeft;
-            displayTimeLeft(timeLeft);
-        }, 1000);
-    }
-    function startTimer() { if (isPaused) { isPaused = false; timer(timeLeft); } }
-    function pauseTimer() { isPaused = true; clearInterval(countdown); }
-    function resetTimer(seconds = 1500) { isPaused = true; clearInterval(countdown); timeLeft = seconds; displayTimeLeft(timeLeft); }
-    startBtn.addEventListener('click', startTimer);
-    pauseBtn.addEventListener('click', pauseTimer);
-    resetBtn.addEventListener('click', () => resetTimer(timeLeft));
-    sessionBtns.forEach(btn => btn.addEventListener('click', (e) => {
-        const seconds = parseInt(e.target.dataset.time, 10);
-        resetTimer(seconds);
-    }));
-    displayTimeLeft(timeLeft);
-
-
-    // --- Logic cho Chatbot (giữ nguyên) ---
-    const chatWindow = document.getElementById('chat-window');
-    const chatForm = document.getElementById('chat-form');
-    const chatInput = document.getElementById('chat-input');
-
-    chatForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const userMessage = chatInput.value.trim();
-        if (userMessage) {
-            addMessageToChat(userMessage, 'user');
-            chatInput.value = '';
-            getBotResponse(userMessage);
-        }
-    });
-
-    function addMessageToChat(message, sender, isLoading = false) {
-        const messageElement = document.createElement('div');
-        messageElement.classList.add('chat-message', `${sender}-message`);
-        if (isLoading) {
-            messageElement.classList.add('loading');
-            messageElement.innerHTML = `<span></span><span></span><span></span>`;
-        } else {
-            messageElement.textContent = message;
-        }
-        chatWindow.appendChild(messageElement);
-        chatWindow.scrollTop = chatWindow.scrollHeight;
-        return messageElement;
-    }
-
-    async function getBotResponse(userMessage) {
-        const loadingElement = addMessageToChat('', 'bot', true);
-        
-        // ***** W A R N I N G *****
-        // ĐÂY LÀ PHẦN QUAN TRỌNG: KHÔNG BAO GIỜ ĐỂ API KEY TRỰC TIẾP TRONG CODE CÔNG KHAI
-        // HÃY SỬ DỤNG BIẾN MÔI TRƯỜNG KHI TRIỂN KHAI THỰC TẾ
-        // Tạm thời, bạn sẽ dán key vào đây để thử nghiệm.
-        const API_KEY = 'AIzaSyAsOcGBZesrz_Xmqg8OWpn2boJG2CtToCE'; // <--- THAY API KEY CỦA BẠN VÀO ĐÂY
-
-        const textbookContext = `
-        Chắc chắn rồi, đây là toàn bộ nội dung trong tệp "CHUYÊN ĐỀ HỌC TẬP VẬT LÝ 10_CTST.pdf" được diễn đạt lại dưới dạng văn xuôi mà không rút gọn, bạn có thể sao chép và sử dụng.
+    const textbookContext = `
+    Chắc chắn rồi, đây là toàn bộ nội dung trong tệp "CHUYÊN ĐỀ HỌC TẬP VẬT LÝ 10_CTST.pdf" được diễn đạt lại dưới dạng văn xuôi mà không rút gọn, bạn có thể sao chép và sử dụng.
 
 ***
 
@@ -586,30 +464,44 @@ Việt Nam vẫn phụ thuộc nhiều vào năng lượng hóa thạch. [cite_s
 
 **Biến đổi khí hậu và Suy giảm tầng Ozone**
 * [cite_start]**Biến đổi khí hậu:** Là sự thay đổi của hệ thống khí hậu toàn cầu, chủ yếu do hoạt động của con người làm tăng nồng độ khí nhà kính[cite: 2099, 2116]. [cite_start]Các biểu hiện rõ rệt bao gồm sự nóng lên toàn cầu, băng tan ở hai cực, mực nước biển dâng, và các hiện tượng thời tiết cực đoan như siêu bão, hạn hán[cite: 2110, 2111, 2115].
-* [cite_start]**Suy giảm tầng Ozone:** Tầng ozone trong khí quyển có vai trò hấp thụ tia cực tím có hại từ Mặt Trời[cite: 2134, 2135]. [cite_start]Các chất hóa học do con người tạo ra, đặc biệt là CFC, đã phá hủy các phân tử ozone, tạo ra "lỗ thủng tầng ozone" và làm tăng nguy cơ ung thư da và các bệnh về mắt cho con người[cite: 2138, 2140, 2142].        `;
+* [cite_start]**Suy giảm tầng Ozone:** Tầng ozone trong khí quyển có vai trò hấp thụ tia cực tím có hại từ Mặt Trời[cite: 2134, 2135]. [cite_start]Các chất hóa học do con người tạo ra, đặc biệt là CFC, đã phá hủy các phân tử ozone, tạo ra "lỗ thủng tầng ozone" và làm tăng nguy cơ ung thư da và các bệnh về mắt cho con người[cite: 2138, 2140, 2142].
+    `;
 
-        const prompt = `Dựa vào thông tin sau đây từ sách giáo khoa Vật lí 10: \n---\n${textbookContext}\n---\nHãy trả lời câu hỏi của học sinh một cách ngắn gọn, dễ hiểu. Chỉ sử dụng thông tin được cung cấp.\nCâu hỏi: "${userMessage}"`;
+    const prompt = `Dựa vào thông tin sau đây từ sách giáo khoa Vật lí 10: \n---\n${textbookContext}\n---\nHãy trả lời câu hỏi của học sinh một cách ngắn gọn, dễ hiểu và thân thiện. Chỉ sử dụng thông tin được cung cấp. Câu hỏi: "${userMessage}"`;
 
-        try {
-            const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${API_KEY}`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
-            });
+    try {
+        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${API_KEY}`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
+        });
+        
+        loadingElement.remove(); // Xóa icon loading
 
-            if (!response.ok) throw new Error(`Lỗi API: ${response.statusText}`);
-
-            const data = await response.json();
-            const botMessage = data.candidates[0].content.parts[0].text;
-            loadingElement.remove();
-            addMessageToChat(botMessage, 'bot');
-        } catch (error) {
-            console.error("Lỗi khi gọi API:", error);
-            loadingElement.remove();
-            addMessageToChat('Xin lỗi, đã có lỗi xảy ra. Vui lòng thử lại sau.', 'bot');
+        if (!response.ok) {
+            const errorData = await response.json();
+            const errorMessage = errorData.error?.message || `Lỗi HTTP: ${response.status}`;
+            throw new Error(errorMessage);
         }
-    }
-    </script>
 
+        const data = await response.json();
+        
+        // SỬA LỖI: Kiểm tra xem AI có trả về nội dung không
+        if (data.candidates && data.candidates.length > 0) {
+            const botMessage = data.candidates[0].content.parts[0].text;
+            addMessageToChat(botMessage, 'bot');
+        } else {
+            // Trường hợp AI không trả lời (ví dụ: do bộ lọc an toàn)
+            addMessageToChat('Xin lỗi, tôi không thể trả lời câu hỏi này. Vui lòng thử một câu hỏi khác.', 'bot', { isError: true });
+        }
+
+    } catch (error) {
+        console.error("Lỗi khi gọi API:", error);
+        if(!loadingElement.parentNode) return; // Tránh xóa lần 2 nếu đã remove
+        loadingElement.remove();
+        addMessageToChat(`Rất tiếc, đã có lỗi xảy ra khi kết nối tới AI. Vui lòng kiểm tra lại API Key và kết nối mạng. (Chi tiết: ${error.message})`, 'bot', { isError: true });
+    }
+}
+</script>
 </body>
 </html>
